@@ -26,11 +26,13 @@ Wait::Result Wait::exec()
         return InvalidArgument;
     }
 
-    if (waitpid(pid, 0, 0) != 0)
-    {
-        ERROR("failed to wait: " << strerror(errno));
-        return IOError;
-    }
+    waitpid(pid, 0, 0);
+
+    // if (waitpid(pid, 0, 0) != 0)
+    // {
+    //     ERROR("failed to wait: " << strerror(errno));
+    //     return IOError;
+    // }
 
     return Success;
 }
