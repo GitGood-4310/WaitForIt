@@ -19,6 +19,7 @@ Wait::~Wait()
 Wait::Result Wait::exec()
 {
     int pid = 0;
+    int status;
 
     if ((pid = atoi(arguments().get("PID"))) <= 0)
     {
@@ -26,7 +27,7 @@ Wait::Result Wait::exec()
         return InvalidArgument;
     }
 
-    waitpid(pid, 0, 0);
+    waitpid(pid, &status, 0);
 
     // if (waitpid(pid, 0, 0) != 0)
     // {
