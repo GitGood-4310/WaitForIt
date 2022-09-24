@@ -1,6 +1,11 @@
 #ifndef __BIN_WAIT_WAIT_H
 #define __BIN_WAIT_WAIT_H
 
+#include <FreeNOS/User.h>
+#include "sys/wait.h"
+#include "sys/types.h"
+#include <errno.h>
+
 #include <POSIXApplication.h>
 
 /**
