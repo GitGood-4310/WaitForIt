@@ -24,6 +24,8 @@ const ProcessID ProcessClient::m_pid = ProcessCtl(SELF, GetPID, 0);
 
 const ProcessID ProcessClient::m_parent = ProcessCtl(SELF, GetParent, 0);
 
+const int ProcessClient::m_priority = ProcessCtl(SELF, GetPriority, 0);
+
 ProcessID ProcessClient::getProcessID() const
 {
     return m_pid;
@@ -68,6 +70,7 @@ ProcessClient::Result ProcessClient::processInfo(const ProcessID pid,
     // Fill output
     info.command = cmd;
     info.textState = (pid == m_pid ? "Running" : textStates[info.kernelState.state]);
+    info.priorityLevel = m_priority;
 #endif /* __HOST__ */
 
     return Success;

@@ -35,6 +35,7 @@ Process::Process(ProcessID id, Address entry, bool privileged, const MemoryMap &
     m_privileged    = privileged;
     m_memoryContext = ZERO;
     m_kernelChannel = ZERO;
+    m_priorityLevel = 5;
     MemoryBlock::set(&m_sleepTimer, 0, sizeof(m_sleepTimer));
 }
 
@@ -60,6 +61,11 @@ Process::~Process()
 ProcessID Process::getID() const
 {
     return m_id;
+}
+
+int Process::getPriority() 
+{
+    return m_priorityLevel;
 }
 
 ProcessID Process::getParent() const

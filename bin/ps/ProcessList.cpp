@@ -64,6 +64,31 @@ ProcessList::Result ProcessList::exec()
         return Success;
     }
     else { //if using priority arg
+        // Print header
+        out << "ID  PARENT  USER GROUP STATUS     PRI    CMD\r\n";
 
+        // Loop processes
+        for (ProcessID pid = 0; pid < ProcessClient::MaximumProcesses; pid++)
+        {
+            ProcessClient::Info info;
+
+            const ProcessClient::Result result = process.processInfo(pid, info);
+            if (result == ProcessClient::Success)
+            {
+                DEBUG("PID " << pid << " state = " << *info.textState);
+
+                // Output a line
+                char line[128];
+                snprintf(line, sizeof(line),
+                        "%3d %7d %4d %5d %10s %9d %32s\r\n",
+                        pid, info.kernelState.parent,
+                        0, 0, *info.textState, info.priorityLevel, *info.command);
+                out << line;
+            }
+        }
+
+        // Output the table
+        write(1, *out, out.length());
+        return Success;
     }
 }
