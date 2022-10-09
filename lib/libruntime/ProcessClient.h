@@ -66,6 +66,8 @@ class ProcessClient
 
         /** Textual state of the process */
         String textState;
+
+        int priorityLevel;
     }
     Info;
 
@@ -128,6 +130,8 @@ class ProcessClient
 
     /** Our parent process identifier */
     static const ProcessID m_parent;
+
+    static const int m_priority;
 };
 
 /**
