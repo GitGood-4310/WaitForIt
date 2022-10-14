@@ -104,6 +104,7 @@ class Process
 
 
     int getPriority();
+    void setPriority(int pri);
     /**
      * Get Wait ID.
      */

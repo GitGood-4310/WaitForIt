@@ -68,6 +68,11 @@ int Process::getPriority()
     return m_priorityLevel;
 }
 
+void Process::setPriority(int pri)
+{
+    m_priorityLevel = pri;
+}
+
 ProcessID Process::getParent() const
 {
     return m_parent;
