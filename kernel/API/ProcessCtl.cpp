@@ -16,6 +16,7 @@
  */
 
 #include <FreeNOS/System.h>
+//#include <stdio.h>
 #include <FreeNOS/Kernel.h>
 #include <FreeNOS/Config.h>
 #include <FreeNOS/Process.h>
@@ -74,7 +75,9 @@ API::Result ProcessCtlHandler(const ProcessID procID,
         return (API::Result) procs->current()->getPriority();
 
     case SetPriority:
-        proc->setPriority(info->priorityLevel);
+        procs->current()->setPriority(info->priorityLevel);
+        //printf("%d", info->priorityLevel);
+        //proc->setPriority(info->priorityLevel);
 
     case Schedule:
         procs->schedule();
@@ -210,3 +213,5 @@ Log & operator << (Log &log, ProcessOperation op)
     }
     return log;
 }
+
+

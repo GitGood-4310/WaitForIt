@@ -19,32 +19,40 @@ Renice::Result Renice::exec()
 {
     int priority = 0;
     int pid = 0;
+    ProcessID PID;
     const ProcessClient process;
 
     priority = atoi(arguments().get("PRI"));
     pid = atoi(arguments().get("PID"));
+    PID = pid;
     ProcessClient::Info info;
-    const ProcessClient::Result result = process.processInfo(pid, info);
+    const ProcessClient::Result result = process.processInfo(PID, info);
+    //const API::Result result = ProcessCtl(pid, SetPriority);
 
     if (priority > 5) {
         ERROR("invalid priority `" << arguments().get("PRI") << "'");
         return InvalidArgument;
     }
     else {
-        if (result == ProcessClient::Success)
-            {
-                info.priorityLevel = priority;
+        // if (result == ProcessClient::Success)
+        // {
+            printf("%d\n", info.priorityLevel);
+            info.priorityLevel = priority;
+            printf("%d\n", info.priorityLevel);
+            ProcessCtl(PID, SetPriority, (Address) &info);
+            //info.priorityLevel = priority;
+            //ERROR("Priority Level is `" << info.priorityLevel << "'");
 
-                // DEBUG("PID " << pid << " state = " << *info.textState);
+            // DEBUG("PID " << pid << " state = " << *info.textState);
 
-                // // Output a line
-                // char line[128];
-                // snprintf(line, sizeof(line),
-                //         "%3d %7d %4d %5d %10s %6d %32s\r\n",
-                //         pid, info.kernelState.parent,
-                //         0, 0, *info.textState, info.priorityLevel, *info.command);
-                // out << line;
-            }
+            // // Output a line
+            // char line[128];
+            // snprintf(line, sizeof(line),
+            //         "%3d %7d %4d %5d %10s %6d %32s\r\n",
+            //         pid, info.kernelState.parent,
+            //         0, 0, *info.textState, info.priorityLevel, *info.command);
+            // out << line;
+        //}
     }
     
     return Success;
