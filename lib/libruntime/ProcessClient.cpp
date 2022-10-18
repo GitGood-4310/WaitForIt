@@ -76,6 +76,13 @@ ProcessClient::Result ProcessClient::processInfo(const ProcessID pid,
     return Success;
 }
 
+void ProcessClient::setPriority(ProcessID pid, int priority, ProcessClient::Info &info) {
+    info.priorityLevel = priority;
+    ERROR("Priority is " << info.priorityLevel);
+    ERROR("PID is " << pid);
+    ProcessCtl(pid, SetPriority, (Address) &info);
+}
+
 ProcessClient::Result ProcessClient::processInfo(const String program,
                                                  ProcessClient::Info &info) const
 {

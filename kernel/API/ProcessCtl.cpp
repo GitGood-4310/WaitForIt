@@ -75,9 +75,12 @@ API::Result ProcessCtlHandler(const ProcessID procID,
         return (API::Result) procs->current()->getPriority();
 
     case SetPriority:
+        //info->priorityLevel = proc->getPriority();
         procs->current()->setPriority(info->priorityLevel);
         //printf("%d", info->priorityLevel);
         //proc->setPriority(info->priorityLevel);
+        ERROR("Priority is " << info->priorityLevel);
+        ERROR("PID is " << proc->getID());
 
     case Schedule:
         procs->schedule();
