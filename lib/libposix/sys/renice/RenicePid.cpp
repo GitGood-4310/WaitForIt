@@ -16,7 +16,7 @@ void renicepid(ProcessID PID, int priority, ProcessClient::Info info) {
     // ERROR("PID is " << PID);
     ProcessCtl(PID, SetPriority, (Address) &info);
     ProcessClient proc;
-    proc.setPriority(PID, priority, info);
+    //proc.setPriority(PID, priority, info);
 
     String out;
 
