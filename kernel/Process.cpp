@@ -71,9 +71,6 @@ int Process::getPriority()
 void Process::setPriority(int pri)
 {
     m_priorityLevel = pri;
-    ERROR("Set priority variable is " << pri);
-    ERROR("PID is " << m_id);
-    ERROR("PRI is " << m_priorityLevel);
 }
 
 ProcessID Process::getParent() const

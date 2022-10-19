@@ -80,9 +80,6 @@ API::Result ProcessCtlHandler(const ProcessID procID,
         //procs->setPriority(1, proc);
         //printf("%d", info->priorityLevel);
         proc->setPriority(info->priorityLevel);
-        ERROR("Info Priority is " << info->priorityLevel);
-         ERROR("PID is " << proc->getID());
-        ERROR("Changed priority is " << proc->getPriority());
         break;
 
     case Schedule:
