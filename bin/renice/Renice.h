@@ -1,6 +1,11 @@
 #ifndef __BIN_RENICE_RENICE_H
 #define __BIN_RENICE_RENICE_H
 
+#include <FreeNOS/User.h>
+#include "sys/RenicePid.h"
+#include "sys/types.h"
+#include <errno.h>
+
 #include <POSIXApplication.h>
 
 /**

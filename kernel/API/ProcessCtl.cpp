@@ -76,11 +76,13 @@ API::Result ProcessCtlHandler(const ProcessID procID,
 
     case SetPriority:
         //info->priorityLevel = proc->getPriority();
-        procs->current()->setPriority(info->priorityLevel);
+        //procs->current()->setPriority(1);
+        //procs->setPriority(1, proc);
         //printf("%d", info->priorityLevel);
-        //proc->setPriority(info->priorityLevel);
-        ERROR("Priority is " << info->priorityLevel);
-        ERROR("PID is " << proc->getID());
+        proc->setPriority(2);
+        ERROR("Info Priority is " << info->priorityLevel);
+         ERROR("PID is " << proc->getID());
+        break;
 
     case Schedule:
         procs->schedule();
@@ -203,6 +205,8 @@ Log & operator << (Log &log, ProcessOperation op)
         case KillPID:   log.append("KillPID"); break;
         case GetPID:    log.append("GetPID"); break;
         case GetParent: log.append("GetParent"); break;
+        case GetPriority: log.append("GetPriority"); break;
+        case SetPriority: log.append("SetPriority"); break;
         case WatchIRQ:  log.append("WatchIRQ"); break;
         case EnableIRQ: log.append("EnableIRQ"); break;
         case DisableIRQ:log.append("DisableIRQ"); break;

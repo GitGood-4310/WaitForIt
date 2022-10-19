@@ -227,6 +227,12 @@ ProcessManager::Result ProcessManager::wait(Process *proc)
     return dequeueProcess(m_current);
 }
 
+ProcessManager::Result ProcessManager::setPriority(int priority, Process *proc) {
+    proc->setPriority(2);
+    //ERROR("PID is " << proc->getID());
+    return Success;
+}
+
 ProcessManager::Result ProcessManager::stop(Process *proc)
 {
     const Process::State state = proc->getState();
