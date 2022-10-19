@@ -70,7 +70,7 @@ ProcessClient::Result ProcessClient::processInfo(const ProcessID pid,
     // Fill output
     info.command = cmd;
     info.textState = (pid == m_pid ? "Running" : textStates[info.kernelState.state]);
-    info.priorityLevel = m_priority;
+    info.priorityLevel = ProcessCtl(pid, GetPriority, (Address) &info.kernelState);
 #endif /* __HOST__ */
 
     return Success;

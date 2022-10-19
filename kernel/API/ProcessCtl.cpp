@@ -72,7 +72,7 @@ API::Result ProcessCtlHandler(const ProcessID procID,
         return (API::Result) procs->current()->getParent();
 
     case GetPriority:
-        return (API::Result) procs->current()->getPriority();
+        return (API::Result) proc->getPriority();
 
     case SetPriority:
         //info->priorityLevel = proc->getPriority();
@@ -82,6 +82,7 @@ API::Result ProcessCtlHandler(const ProcessID procID,
         proc->setPriority(2);
         ERROR("Info Priority is " << info->priorityLevel);
          ERROR("PID is " << proc->getID());
+        ERROR("Changed priority is " << proc->getPriority());
         break;
 
     case Schedule:
