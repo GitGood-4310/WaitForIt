@@ -11,12 +11,15 @@ void renicepid(ProcessID PID, int priority, ProcessClient::Info info) {
     // ProcessClient proc;
     // proc.setPriority(PID, priority, info);
     // printf("%d\n", info.priorityLevel);
-    info.priorityLevel = priority;
     // ERROR("Priority is " << info.priorityLevel);
     // ERROR("PID is " << PID);
-    ProcessCtl(PID, SetPriority, (Address) &info);
-    printf("%d\n", info.priorityLevel);
     ProcessClient proc;
+    proc.processInfo(PID, info);
+    info.priorityLevel = priority;
+    ProcessInfo info1;
+    info1.priorityLevel = priority;
+    ProcessCtl(PID, SetPriority, (Address) &info1);
+    printf("%d is priority\n", info1.priorityLevel);
     //proc.setPriority(PID, priority, info);
 
     String out;
