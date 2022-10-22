@@ -21,7 +21,7 @@ Renice::Result Renice::exec()
     int pid = 0;
     ProcessID PID;
     const ProcessClient process;
-    //ProcessClient proc;
+    ProcessClient proc;
 
     priority = atoi(arguments().get("PRI"));
     pid = atoi(arguments().get("PID"));
@@ -35,7 +35,8 @@ Renice::Result Renice::exec()
         return InvalidArgument;
     }
     else {
-        renicepid(PID, priority, info);
+        //renicepid(PID, priority, info);
+        proc.setPriority(PID, priority, info);
             //printf("%d and %s\n", info.priorityLevel, *info.command);
             //info.priorityLevel = priority;
         //    proc.setPriority(PID, priority, info);
