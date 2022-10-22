@@ -148,38 +148,37 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
 
 Process * Scheduler::select()
 {
-    Process *p;
     if (m_queue_level_Five.count() > 0)
     {
-        p = m_queue_level_Five.pop();
+        Process *p = m_queue_level_Five.pop();
         m_queue_level_Five.push(p);
 
         return p;
     }
     else if (m_queue_level_Four.count() > 0)
     {
-        p = m_queue_level_Four.pop();
+        Process *p = m_queue_level_Four.pop();
         m_queue_level_Four.push(p);
 
         return p;
     }
     else if (m_queue_level_Three.count() > 0)
     {
-        p = m_queue_level_Three.pop();
+        Process *p = m_queue_level_Three.pop();
         m_queue_level_Three.push(p);
 
         return p;
     }
     else if (m_queue_level_Two.count() > 0)
     {
-        p = m_queue_level_Two.pop();
+        Process *p = m_queue_level_Two.pop();
         m_queue_level_Two.push(p);
 
         return p;
     }
     else if (m_queue_level_One.count() > 0)
     {
-        p = m_queue_level_One.pop();
+        Process *p = m_queue_level_One.pop();
         m_queue_level_One.push(p);
 
         return p;
