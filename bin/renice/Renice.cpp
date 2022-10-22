@@ -28,24 +28,13 @@ Renice::Result Renice::exec()
     PID = pid;
     ProcessClient::Info info;
     const ProcessClient::Result result = process.processInfo(PID, info);
-    //const API::Result result = ProcessCtl(pid, SetPriority);
 
     if (priority > 5) {
         ERROR("invalid priority `" << arguments().get("PRI") << "'");
         return InvalidArgument;
     }
     else {
-        //renicepid(PID, priority, info);
         proc.setPriority(PID, priority, info);
-            //printf("%d and %s\n", info.priorityLevel, *info.command);
-            //info.priorityLevel = priority;
-        //    proc.setPriority(PID, priority, info);
-        //    printf("%d\n", info.priorityLevel);
-            //ProcessCtl(PID, SetPriority, (Address) &info);
-            //info.priorityLevel = priority;
-            //ERROR("Priority Level is `" << info.priorityLevel << "'");
-
-
     }
     
     return Success;
