@@ -34,7 +34,6 @@ Renice::Result Renice::exec()
         return InvalidArgument;
     }
     else {
-        //proc.setPriority(PID, priority, info);
         renicepid(PID, priority, info);
     }
     
