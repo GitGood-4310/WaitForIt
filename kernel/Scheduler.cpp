@@ -81,7 +81,6 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
     Size count_Four = m_queue_level_Four.count();
     Size count_Five = m_queue_level_Five.count();
 
-    // Size count = m_queue_level_One.count();
     // Traverse the Queue to remove the Process
     for (Size i = 0; i < count_One; i++)
     {
@@ -93,7 +92,6 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
             m_queue_level_One.push(p);
     }
 
-    // Size count = m_queue_level_Two.count();
     // Traverse the Queue to remove the Process
     for (Size i = 0; i < count_Two; i++)
     {
@@ -105,7 +103,6 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
             m_queue_level_Two.push(p);
     }
 
-    // Size count = m_queue_level_Three.count();
     // Traverse the Queue to remove the Process
     for (Size i = 0; i < count_Three; i++)
     {
@@ -117,7 +114,6 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
             m_queue_level_Three.push(p);
     }
 
-    // Size count = m_queue_level_Four.count();
     // Traverse the Queue to remove the Process
     for (Size i = 0; i < count_Four; i++)
     {
@@ -129,7 +125,6 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
             m_queue_level_Four.push(p);
     }
 
-    // Size count = m_queue_level_Five.count();
     // Traverse the Queue to remove the Process
     for (Size i = 0; i < count_Five; i++)
     {
@@ -140,7 +135,6 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
         else
             m_queue_level_Five.push(p);
     }
-
 
     FATAL("process ID " << proc->getID() << " is not in the schedule");
     return InvalidArgument;
