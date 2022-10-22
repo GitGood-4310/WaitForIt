@@ -77,11 +77,8 @@ ProcessClient::Result ProcessClient::processInfo(const ProcessID pid,
 }
 
 void ProcessClient::setPriority(ProcessID pid, int priority, ProcessClient::Info &info) {
-    info.priorityLevel = priority;
     ProcessInfo info1;
     info1.priorityLevel = priority;
-    // ERROR("Priority is " << info.priorityLevel);
-    // ERROR("PID is " << pid);
     ProcessCtl(pid, SetPriority, (Address) &info1);
 }
 
