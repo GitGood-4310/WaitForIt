@@ -14,7 +14,7 @@ void renicepid(ProcessID PID, int priority, ProcessClient::Info info) {
     {
         case API::NotFound:
             errno = ESRCH;
-            ERROR("failed to wait: " << strerror(errno));
+            ERROR("PID: " << strerror(errno));
             break;
 
         case API::Success:
