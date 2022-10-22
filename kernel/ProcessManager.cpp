@@ -427,3 +427,21 @@ ProcessManager::Result ProcessManager::dequeueProcess(Process *proc, const bool 
 
     return Success;
 }
+
+//After renice is called, dequeue process
+ProcessManager::Result ProcessManager::redequeueProcess(Process *proc){
+    const Result result = dequeueProcess(proc, true);
+    if(result != Success){
+        ERROR("process ID " << proc->getID() << " was not removed from Scheduler");
+    }
+    return Success; 
+}
+
+//After renice is called, and process is dequeued, re-enqueue process
+ProcessManager::Result ProcessManager::reenqueueProcess(Process *proc){
+    const Result result = enqueueProcess(proc, true);
+    if(result != Success){
+        ERROR("process ID " << proc->getID() << " was not readded to Scheduler");
+    }
+    return Success;
+}

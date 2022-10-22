@@ -23,12 +23,9 @@ Scheduler::Scheduler()
 {
     DEBUG("");
 }
-
 Size Scheduler::count() const
 {
-    Size size; 
-    size = m_queue_level_One.count() + m_queue_level_Three.count() + m_queue_level_Five.count();
-    return size;
+    return m_queue_level_One.count();
 }
 
 Scheduler::Result Scheduler::enqueue(Process *proc, bool ignoreState)
@@ -39,7 +36,6 @@ Scheduler::Result Scheduler::enqueue(Process *proc, bool ignoreState)
         return InvalidArgument;
     }
 
-    // m_queue.push(proc);
     int priority = proc->getPriority(); 
     Scheduler::Result result;
 
@@ -48,27 +44,22 @@ Scheduler::Result Scheduler::enqueue(Process *proc, bool ignoreState)
         case 1:
             m_queue_level_One.push(proc);
             result = Success;
-            //ERROR("Pushed to level one");
             break;
         case 2:
             m_queue_level_Two.push(proc);
             result = Success;
-            //ERROR("Pushed to level two");
             break;
         case 3:
             m_queue_level_Three.push(proc);
             result = Success;
-            //ERROR("Pushed to level three");
             break;
         case 4:
             m_queue_level_Four.push(proc);
             result = Success;
-            //ERROR("Pushed to level four");
             break;
         case 5:
             m_queue_level_Five.push(proc);
             result = Success;
-            //ERROR("Pushed to level five");
             break;
         default:
             break;
@@ -90,7 +81,7 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
     Size count_Four = m_queue_level_Four.count();
     Size count_Five = m_queue_level_Five.count();
 
-    // Size count = m_queue.count();
+    // Size count = m_queue_level_One.count();
     // Traverse the Queue to remove the Process
     for (Size i = 0; i < count_One; i++)
     {
@@ -101,6 +92,9 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
         else
             m_queue_level_One.push(p);
     }
+
+    // Size count = m_queue_level_Two.count();
+    // Traverse the Queue to remove the Process
     for (Size i = 0; i < count_Two; i++)
     {
         Process *p = m_queue_level_Two.pop();
@@ -111,6 +105,8 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
             m_queue_level_Two.push(p);
     }
 
+    // Size count = m_queue_level_Three.count();
+    // Traverse the Queue to remove the Process
     for (Size i = 0; i < count_Three; i++)
     {
         Process *p = m_queue_level_Three.pop();
@@ -121,6 +117,8 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
             m_queue_level_Three.push(p);
     }
 
+    // Size count = m_queue_level_Four.count();
+    // Traverse the Queue to remove the Process
     for (Size i = 0; i < count_Four; i++)
     {
         Process *p = m_queue_level_Four.pop();
@@ -131,6 +129,8 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
             m_queue_level_Four.push(p);
     }
 
+    // Size count = m_queue_level_Five.count();
+    // Traverse the Queue to remove the Process
     for (Size i = 0; i < count_Five; i++)
     {
         Process *p = m_queue_level_Five.pop();
@@ -149,25 +149,10 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
 Process * Scheduler::select()
 {
     Process *p;
-    if (m_queue_level_One.count() > 0)
+    if (m_queue_level_Five.count() > 0)
     {
-        p = m_queue_level_One.pop();
-        m_queue_level_One.push(p);
-
-        return p;
-    }
-
-    else if (m_queue_level_Two.count() > 0)
-    {
-        p = m_queue_level_Two.pop();
-        m_queue_level_Two.push(p);
-
-        return p;
-    }
-    else if (m_queue_level_Three.count() > 0)
-    {
-        p = m_queue_level_Three.pop();
-        m_queue_level_Three.push(p);
+        p = m_queue_level_Five.pop();
+        m_queue_level_Five.push(p);
 
         return p;
     }
@@ -178,10 +163,24 @@ Process * Scheduler::select()
 
         return p;
     }
-    else if (m_queue_level_Five.count() > 0)
+    else if (m_queue_level_Three.count() > 0)
     {
-        p = m_queue_level_Five.pop();
-        m_queue_level_Five.push(p);
+        p = m_queue_level_Three.pop();
+        m_queue_level_Three.push(p);
+
+        return p;
+    }
+    else if (m_queue_level_Two.count() > 0)
+    {
+        p = m_queue_level_Two.pop();
+        m_queue_level_Two.push(p);
+
+        return p;
+    }
+    else if (m_queue_level_One.count() > 0)
+    {
+        p = m_queue_level_One.pop();
+        m_queue_level_One.push(p);
 
         return p;
     }

@@ -211,6 +211,12 @@ class ProcessManager
      */
     Process * current();
 
+    //After renice, dequeue process
+    Result redequeueProcess(Process *proc);
+
+    //After renice, requeue the process
+    Result reenqueueProcess(Process *proc);
+
   private:
 
     /**

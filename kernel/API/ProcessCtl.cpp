@@ -76,6 +76,9 @@ API::Result ProcessCtlHandler(const ProcessID procID,
 
     case SetPriority:
         proc->setPriority(info->priorityLevel);
+        procs->redequeueProcess(proc);
+        procs->reenqueueProcess(proc);
+        procs->schedule();
         break;
 
     case Schedule:
