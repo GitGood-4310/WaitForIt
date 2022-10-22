@@ -37,8 +37,37 @@ Scheduler::Result Scheduler::enqueue(Process *proc, bool ignoreState)
         return InvalidArgument;
     }
 
-    m_queue.push(proc);
-    return Success;
+    // m_queue.push(proc);
+    int priority = proc->getPriority(); 
+    Scheduler::Result result;
+
+    switch (priority)
+    {
+        case 1:
+            m_queue_level_One.push(proc);
+            result = Success;
+            break;
+        case 2:
+            m_queue_level_Two.push(proc);
+            result = Success;
+            break;
+        case 3:
+            m_queue_level_Three.push(proc);
+            result = Success;
+            break;
+        case 4:
+            m_queue_level_Four.push(proc);
+            result = Success;
+            break;
+        case 5:
+            m_queue_level_Five.push(proc);
+            result = Success;
+            break;
+        default:
+            break;
+    }
+
+    return result;
 }
 
 Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
