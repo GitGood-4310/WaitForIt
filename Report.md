@@ -120,4 +120,32 @@ MemoryContext::Result IntelPageTable::translate(Address virt, Address *phys) con
 It sets physical address equal to entry inside page table of a virtual address using a page mask.
 
 Interesting things to note:
-FreeNOS has a log 
+FreeNOS has a log error message for page faults which could be found at lib/libarch/intel/IntelCore.cpp line 88.
+
+case INTEL_PAGEFAULT:
+    ERROR("Page Fault Exception");
+    s << "Error " << state->error << " at " << Number::Hex << readCR2();
+    ERROR(*s);
+    break;
+
+Since page faults are never handled by the OS this is the only place where you can find a mention of page faults within the OS.
+
+The translation lookaside buffer is flushed for a single page using method tlb_flush in lib/libarch/intel/IntelCore.h line 92.
+
+#define tlb_flush(addr) \
+    asm volatile("invlpg (%0)" ::"r" (addr) : "memory")
+
+The kernel initialized heap for dynamic memory allocation with new() and delete() operators at kernel/Kernel.h in line 117-124
+
+    /**
+     * Initialize heap.
+     *
+     * This function sets up the kernel heap for
+     * dynamic memory allocation with new() and delete()
+     * operators. It must be called before any object
+     * is created using new().
+     *
+     * @return Zero on success or error code on failure.
+     */
+    static Error initializeHeap();
+
