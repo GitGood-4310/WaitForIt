@@ -104,3 +104,20 @@ The number of segments per page is 8, which means that the offset is 8. This is 
 
 Is the segment table paged?
 The segment table is paged. 
+
+Is there address translation?
+Yes the address translation could be found at lib/libarch/intel/IntelPageTable.cpp line 57.
+
+MemoryContext::Result IntelPageTable::translate(Address virt, Address *phys) const
+{
+    if (!(m_pages[ TABENTRY(virt) ] & PAGE_PRESENT))
+        return MemoryContext::InvalidAddress;
+
+    *phys = (m_pages[ TABENTRY(virt) ] & PAGEMASK);
+    return MemoryContext::Success;
+}
+
+It sets physical address equal to entry inside page table of a virtual address using a page mask.
+
+Interesting things to note:
+FreeNOS has a log 
