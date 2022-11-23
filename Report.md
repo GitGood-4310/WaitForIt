@@ -41,6 +41,9 @@ How does FreeNos allocate memory?
                 return OutOfMemory;
         }
 
+                
+        lib/libarch/MemoryContext.cpp (Line 117-144)
+
 In this method, we note that the while loop is not iterating through the whole memory stack before allocating the program to an openspace so it eliminates the options of best-fit and worst-fit. Thus, we are left with two options for memory allocation: first-fit and next-fit. Looking closer at the parameters of the while loop, there is a statement checking if currentSize < size. It is noted that currentSize is initialized to 0 at the start of the method and size has no reference related to the file that we are trying to allocate in memory, meaning that it is reffering to the memory stacks size. Therefore, memory is allocated using the First-fit algorithm. 
 
 What is the Page Size?
@@ -51,16 +54,22 @@ We found BootImageCreate.h that the max number of memory regions is 16. The numb
 
     numSegments += input[i]->numRegions
 
+    bin/img/BootImageCreate.cpp (Line 16)
+
 What is segment size?
 The size of the segment is set in this line 244 of BootImageCreate.cpp : 
 
     sizeof(BootSegment)
+
+    bin/img/BootImageCreate.cpp (Line 244)
 
 In BootImage.h you can see that the segment size is variable type u32.
 The number of segments per page is 8, which means that the offset is 8. This is the code that we used to find the segment size.
 
     segments = new BootSegment[numSegments];
     symbols[i].segmentsOffset = numSegments;
+
+
     for (Size i = 0; i < input.count(); i++)
         {
             strncpy(symbols[i].name, input[i]->symbol.name, BOOTIMAGE_NAMELEN);
@@ -71,7 +80,9 @@ The number of segments per page is 8, which means that the offset is 8. This is 
             symbols[i].segmentsTotalSize = 0;
             numSegments += input[i]->numRegions;
         }
-    Vector<BootEntry > input
+    bin/img/BootImageCreate.cpp (Line 229-238) 
+
+    Vector<BootEntry > input (Line195)
 
     typedef struct BootEntry
     {
@@ -88,6 +99,8 @@ The number of segments per page is 8, which means that the offset is 8. This is 
         Size numRegions;
     }
     BootEntry;
+
+    bin/img/BootImageCreate.h (Line 36-50)
 
 Is the segment table paged?
 The segment table is paged. 
